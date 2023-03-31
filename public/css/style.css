@@ -1,0 +1,13 @@
+h1{
+    color: red;
+}
+
+.tempInformation{
+    width:40rem;
+    margin:auto;
+    min-height: 20rem;
+    background-color: #323544;
+    border-radius: 1rem;
+    padding: 1rem;
+    font-family: "Roboto", sans-serif;
+}

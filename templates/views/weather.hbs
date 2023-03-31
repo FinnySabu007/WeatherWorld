@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+</head>
+<body>
+    {{>navbar}}
+    
+    <!-- main header -->
+    <div class="container-fluid main_header">
+         <div class="row">
+            <div class="col-md-10 col-12 mx-auto">
+
+              <div class="main-content">
+                <form class="temp_form">
+                   <input type="text" id="city" placeholder="Enter your city" autocomplete="off">
+                   <input type="submit" value="search" id="submitBtn">
+                </form>
+
+              </div>
+
+              <div class="tempInformation">
+                   <div class="top_layer">
+                    <p id="day">Tuesday</p>
+                    <p id="today_data">13 OCT</p>
+                   </div>
+                   <div class="main_layer">
+                    <p id="city_name">Get Output Here</p>
+                    <div class="middle_layer data_hide">
+                      <p id="temp"> <span>0</span> <sup>o</sup>C</p>
+                      <p id="temp_status"><i class="fa fa-cloud" aria-hidden="true"></i></p>
+                    </div>
+                   </div>
+              </div>
+
+            </div>
+         </div>
+    </div>
+    
+    <script>
+       
+        const city = document.getElementById('city')
+        const submitBtn = document.getElementById('submitBtn');
+        const getInfo = async(event)=>{
+            event.preventDefault();
+           let city_value = city.value;
+          
+
+
+           if(city_value === ""){
+                 city_name.innerText = "please enter a city"
+           }
+           else{
+            
+            city_name.innerText = ``
+            try{
+                let url = `https://api.openweathermap.org/data/2.5/weather?q=${city_value}&appid=281fc3b853b67a3c8472e0c415d4f72e`
+                 const response = await fetch(url);
+                 const r = await response.json()
+                  
+                  var weekdays = new Array(7);
+        weekdays[0] = "Sun"    
+        weekdays[1] = "Mon"  
+        weekdays[2] = "Tue"  
+        weekdays[3] = "Wed"  
+        weekdays[4] = "Thu"  
+        weekdays[5] = "Fri"  
+        weekdays[6] = "Sat"  
+
+        var months = new Array(12);
+        months[0] = "Jan"
+        months[1] = "Feb"
+        months[2] = "Mar"
+        months[3] = "Apr"
+        months[4] = "May"
+        months[5] = "Jun"
+        months[6] = "Jul"
+        months[7] = "Aug"
+        months[8] = "Sep"
+        months[9] = "Oct"
+        months[10] = "Nov"
+        months[11] = "Dec"
+
+        let currentDate = new Date();
+        const week = weekdays[currentDate.getDay()];
+        const month = months[currentDate.getMonth()];
+        day.innerText = week
+                  today_data.innerText = month
+                  temp.innerText = r.main.temp
+                
+                 console.log(r)
+            }
+            catch
+            {
+                city_name.innerText = `please enter valid values`
+            }
+                 
+           }
+        }
+
+        console.log("hi")
+
+        submitBtn.addEventListener('click',getInfo)
+    </script>
+</body>
+</html>
